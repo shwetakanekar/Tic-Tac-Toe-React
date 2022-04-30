@@ -87,7 +87,6 @@ class Game extends React.Component {
       return;
     }
     squares[i] = this.state.xIsNext ? "X" : "O";
-    console.log(squares);
     this.setState({
       history: history.concat([{ squares }]),
       xIsNext: !this.state.xIsNext,
@@ -99,6 +98,19 @@ class Game extends React.Component {
     this.setState({
       stepNumber: step,
       xIsNext: step % 2 === 0,
+    });
+  }
+
+  startNewGame() {
+    console.log("New game");
+    this.setState({
+      history: [
+        {
+          squares: Array(9).fill(null),
+        },
+      ],
+      xIsNext: true,
+      stepNumber: 0,
     });
   }
 
@@ -130,6 +142,9 @@ class Game extends React.Component {
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
           />
+          <button className="new-game" onClick={() => this.startNewGame()}>
+            Start New Game
+          </button>
         </div>
         <div className="game-info">
           <div>{status}</div>
